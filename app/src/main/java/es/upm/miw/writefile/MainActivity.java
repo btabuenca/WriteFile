@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String FILE_NAME = "example.txt";
+    private static final String FILE_NAME = "config.txt";
 
     EditText mEditText;
 
@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mEditText = findViewById(R.id.edit_text);
+
+        // Preload in case the file was previously created
+        loadFile(mEditText);
     }
 
     public void saveFile(View v) {
@@ -69,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
             mEditText.setText(sb.toString());
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Toast.makeText(this, "File " + getFilesDir() + "/" + FILE_NAME
+                            + " does not exist", Toast.LENGTH_LONG).show();
+            //e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
