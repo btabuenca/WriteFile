@@ -1,10 +1,11 @@
 package es.upm.miw.writefile;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String FILE_NAME = "config.txt";
+    private static final String FILE_NAME = "example.txt";
 
     EditText mEditText;
 
@@ -24,17 +25,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mEditText = findViewById(R.id.edit_text);
-
-        // Preload in case the file was previously created
-        loadFile(mEditText);
     }
 
+    /**
+     * saveFile
+     * Opens file for writing
+     *
+     * @param v
+     */
     public void saveFile(View v) {
         String text = mEditText.getText().toString();
         FileOutputStream fos = null;
 
         try {
-            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            fos = openFileOutput(FILE_NAME, MODE_PRIVATE); // removes previously existing content
+            // fos = openFileOutput(FILE_NAME, MODE_APPEND); // appends content in the end
             fos.write(text.getBytes());
 
             mEditText.getText().clear();
@@ -55,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * Opens file for reading
+     * @param v
+     */
     public void loadFile(View v) {
         FileInputStream fis = null;
 
@@ -72,9 +82,7 @@ public class MainActivity extends AppCompatActivity {
             mEditText.setText(sb.toString());
 
         } catch (FileNotFoundException e) {
-            Toast.makeText(this, "File " + getFilesDir() + "/" + FILE_NAME
-                            + " does not exist", Toast.LENGTH_LONG).show();
-            //e.printStackTrace();
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
