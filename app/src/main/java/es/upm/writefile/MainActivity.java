@@ -1,4 +1,4 @@
-package es.upm.miw.writefile;
+package es.upm.writefile;
 
 import android.os.Bundle;
 import android.view.View;
