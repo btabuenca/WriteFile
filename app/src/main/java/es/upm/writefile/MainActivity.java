@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         FileOutputStream fos = null;
 
         try {
-            fos = openFileOutput(FILE_NAME, MODE_PRIVATE); // removes previously existing content
-            // fos = openFileOutput(FILE_NAME, MODE_APPEND); // appends content in the end
+            //fos = openFileOutput(FILE_NAME, MODE_PRIVATE); // removes previously existing content
+            fos = openFileOutput(FILE_NAME, MODE_APPEND); // appends content in the end
             fos.write(text.getBytes());
 
             mEditText.getText().clear();
